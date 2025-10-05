@@ -14,6 +14,10 @@ RUN set -xe \
         autoconf \
         pkg-config \
         git \
+        curl \
+        mysql-client \
+        bash \
+    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     && yes | pecl install -o -f mcrypt-1.0.9 \
     && docker-php-ext-enable mcrypt \
     && docker-php-ext-install mysqli \
@@ -34,11 +38,6 @@ RUN set -xe \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 COPY ./laravel.ini  /usr/local/etc/php/conf.d
-
-RUN apk --update add curl \
-    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-RUN apk add mysql-client bash
 
 WORKDIR /var/www
 
