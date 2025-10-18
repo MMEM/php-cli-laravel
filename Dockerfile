@@ -41,7 +41,9 @@ RUN set -xe \
             bash \
             zip unzip \
             git \
-    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+    && sudo apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 COPY ./laravel.ini  /usr/local/etc/php/conf.d
 
